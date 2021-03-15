@@ -4,16 +4,16 @@
 %bcond_with tests
 
 # last tagged release is from 2016 despite ongoing development
-%global commit 6aec23c367d9c0aacade597dedd0b2ccc373a43f
+%global commit 97a8c0a9152d7e52d791707d2599cc94207b5c42
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20210128
+%global date 20210312
 
 %global _shared_builddir shared_build
 %global _static_builddir static_build
 
 Name:           wdt
 Version:        1.32.1910230
-Release:        2.%{?date}git%{?shortcommit}%{?dist}
+Release:        3.%{?date}git%{?shortcommit}%{?dist}
 Summary:        Warp speed Data Transfer
 
 License:        BSD
@@ -159,6 +159,9 @@ popd
 %endif
 
 %changelog
+* Mon Mar 15 2021 Michel Alexandre Salim <salimma@fedoraproject.org> - 1.32.1910230-3.20210312git97a8c0a
+- Update to 20210312
+
 * Tue Mar  9 2021 Davide Cavalca <dcavalca@fedoraproject.org> - 1.32.1910230-2.20210128git6aec23c
 - Fix typos in summary
 - Use more strict globbing for the soname version
