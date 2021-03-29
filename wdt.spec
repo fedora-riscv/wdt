@@ -13,7 +13,7 @@
 
 Name:           wdt
 Version:        1.32.1910230
-Release:        4.%{?date}git%{?shortcommit}%{?dist}
+Release:        5.%{?date}git%{?shortcommit}%{?dist}
 Summary:        Warp speed Data Transfer
 
 License:        BSD
@@ -159,8 +159,11 @@ popd
 %endif
 
 %changelog
+* Mon Mar 29 2021 Michel Alexandre Salim <salimma@fedoraproject.org> - 1.32.1910230-5.20210312git97a8c0a
+- Rebuild against folly 2021.03.29.00
+
 * Wed Mar 24 2021 Michel Alexandre Salim <salimma@fedoraproject.org> - 1.32.1910230-4.20210312git97a8c0a
-- Rebuild against folly 20210322
+- Rebuild against folly 2021.03.22.00
 
 * Mon Mar 15 2021 Michel Alexandre Salim <salimma@fedoraproject.org> - 1.32.1910230-3.20210312git97a8c0a
 - Update to 20210312
