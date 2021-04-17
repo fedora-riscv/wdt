@@ -82,6 +82,9 @@ developing applications that use %{name}.
 # wdt needs to be build from a base directory called wdt
 # https://github.com/facebook/wdt/issues/213
 ln -s %{name}-%{commit} %{name}
+pushd %{name} >/dev/null
+%patch0 -p1
+popd >/dev/null
 # Disable hardcoded CXX FLAGS
 sed -i -e 's/set(CMAKE_CXX_FLAGS.*//' %{name}/CMakeLists.txt
 
