@@ -19,6 +19,8 @@ Summary:        Warp speed Data Transfer
 License:        BSD
 URL:            https://www.facebook.com/WdtOpenSource
 Source0:        https://github.com/facebook/wdt/archive/%{commit}/%{name}-%{commit}.tar.gz
+# WDT uses C++17 features starting with fdbc5432230290f86ff8ad89ab52d5b7fef232b4
+Patch0:         wdt-require_cxx17.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
