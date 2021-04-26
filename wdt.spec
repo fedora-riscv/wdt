@@ -4,9 +4,9 @@
 %bcond_with tests
 
 # last tagged release is from 2016 despite ongoing development
-%global commit fdbc5432230290f86ff8ad89ab52d5b7fef232b4
+%global commit 0f100c6f38220378fcfbc672b007f4272c416a03
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20210331
+%global date 20210420
 
 %global _shared_builddir shared_build
 %global _static_builddir static_build
@@ -19,8 +19,6 @@ Summary:        Warp speed Data Transfer
 License:        BSD
 URL:            https://www.facebook.com/WdtOpenSource
 Source0:        https://github.com/facebook/wdt/archive/%{commit}/%{name}-%{commit}.tar.gz
-# WDT uses C++17 features starting with fdbc5432230290f86ff8ad89ab52d5b7fef232b4
-Patch0:         wdt-require_cxx17.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -82,9 +80,6 @@ developing applications that use %{name}.
 # wdt needs to be build from a base directory called wdt
 # https://github.com/facebook/wdt/issues/213
 ln -s %{name}-%{commit} %{name}
-pushd %{name} >/dev/null
-%patch0 -p1
-popd >/dev/null
 # Disable hardcoded CXX FLAGS
 sed -i -e 's/set(CMAKE_CXX_FLAGS.*//' %{name}/CMakeLists.txt
 
@@ -164,6 +159,9 @@ popd
 %endif
 
 %changelog
+* Mon Apr 26 2021 Michel Alexandre Salim <salimma@fedoraproject.org> - 1.32.1910230-5.20210420git0f100c6
+- Update to snapshot from 20210420
+
 * Fri Apr 16 2021 Michel Alexandre Salim <salimma@fedoraproject.org> - 1.32.1910230-5.20210331gitfdbc543
 - Update to snapshot from 20210331
 
