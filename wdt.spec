@@ -4,9 +4,9 @@
 %bcond_with tests
 
 # last tagged release is from 2016 despite ongoing development
-%global commit 0f100c6f38220378fcfbc672b007f4272c416a03
+%global commit b98479c61e17b528298055e3bcf07f4c6cb82f57
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20210420
+%global date 20210625
 
 %global _shared_builddir shared_build
 %global _static_builddir static_build
@@ -159,6 +159,9 @@ popd
 %endif
 
 %changelog
+* Mon Jul 12 2021 Michel Alexandre Salim <salimma@fedoraproject.org> - 1.32.1910230-6.20210625gitb98479c
+- Update to snapshot from 20210625
+
 * Mon May 10 2021 Michel Alexandre Salim <salimma@fedoraproject.org> - 1.32.1910230-6.20210420git0f100c6
 - Rebuild against folly 2021.05.10.00
 
