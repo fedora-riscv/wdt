@@ -4,9 +4,9 @@
 %bcond_with tests
 
 # last tagged release is from 2016 despite ongoing development
-%global commit b98479c61e17b528298055e3bcf07f4c6cb82f57
+%global commit 7c44f79252d451a07b7845f7fc337ba7d643adce
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20210625
+%global date 20210726
 
 %global _shared_builddir shared_build
 %global _static_builddir static_build
@@ -159,6 +159,9 @@ popd
 %endif
 
 %changelog
+* Sun Aug  1 2021 Michel Alexandre Salim <salimma@fedoraproject.org> - 1.32.1910230-7.20210726git7c44f79
+- Update to snapshot from 20210726
+
 * Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.32.1910230-7.20210625gitb98479c
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 
