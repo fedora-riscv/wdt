@@ -4,9 +4,9 @@
 %bcond_with tests
 
 # last tagged release is from 2016 despite ongoing development
-%global commit 7c44f79252d451a07b7845f7fc337ba7d643adce
+%global commit 57bbd437075324892620ffa38d6c207f4acdd714
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20210726
+%global date 20210809
 
 %global _shared_builddir shared_build
 %global _static_builddir static_build
