@@ -1,0 +1,50 @@
+* Sun Aug  1 2021 Michel Alexandre Salim <salimma@fedoraproject.org> - 1.32.1910230-7.20210726git7c44f79
+- Update to snapshot from 20210726
+
+* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.32.1910230-7.20210625gitb98479c
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Mon Jul 12 2021 Michel Alexandre Salim <salimma@fedoraproject.org> - 1.32.1910230-6.20210625gitb98479c
+- Update to snapshot from 20210625
+
+* Mon May 10 2021 Michel Alexandre Salim <salimma@fedoraproject.org> - 1.32.1910230-6.20210420git0f100c6
+- Rebuild against folly 2021.05.10.00
+
+* Mon Apr 26 2021 Michel Alexandre Salim <salimma@fedoraproject.org> - 1.32.1910230-5.20210420git0f100c6
+- Update to snapshot from 20210420
+
+* Fri Apr 16 2021 Michel Alexandre Salim <salimma@fedoraproject.org> - 1.32.1910230-5.20210331gitfdbc543
+- Update to snapshot from 20210331
+
+* Mon Mar 29 2021 Michel Alexandre Salim <salimma@fedoraproject.org> - 1.32.1910230-5.20210312git97a8c0a
+- Rebuild against folly 2021.03.29.00
+
+* Wed Mar 24 2021 Michel Alexandre Salim <salimma@fedoraproject.org> - 1.32.1910230-4.20210312git97a8c0a
+- Rebuild against folly 2021.03.22.00
+
+* Mon Mar 15 2021 Michel Alexandre Salim <salimma@fedoraproject.org> - 1.32.1910230-3.20210312git97a8c0a
+- Update to 20210312
+
+* Tue Mar  9 2021 Davide Cavalca <dcavalca@fedoraproject.org> - 1.32.1910230-2.20210128git6aec23c
+- Fix typos in summary
+- Use more strict globbing for the soname version
+
+* Thu Jan 28 2021 Davide Cavalca <dcavalca@fedoraproject.org> - 1.32.1910230-1.20210128git6aec23c
+- Bump git commit to include upstream fixes
+- Use system folly instead of bundling it
+- Default to shared library build
+- Use %%cmake instead of %%cmake3
+- Use %%bcond for tests and turn off by default due to flakiness
+- Update BuildRequires and Requires
+
+* Sat Nov 07 2020 Nicolas Chauvet <kwizart@gmail.com> - 1.32.1910230-2.20200909gitb585d21
+- Improve description
+- Add --with tests conditional for tests
+- Switch to cmake3
+- And ExcludeArch inherited from folly
+
+* Fri Oct 23 2020 Nicolas Chauvet <kwizart@gmail.com> - 1.32.1910230-1.20200909gitb585d21
+- Update to 1.32.1910230 snapshot
+
+* Tue Dec 19 2017 Kees de Jong <keesdejong@fedoraproject.org> - 1.27.1612021-1
+- Initial package
