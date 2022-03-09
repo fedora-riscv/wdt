@@ -1,4 +1,3 @@
-%bcond_without static
 # The tests work but they rely on strict timing, which makes them flaky when
 # run in koji, so keep them disabled for now
 %bcond_with tests
@@ -8,12 +7,9 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global date 20210809
 
-%global _shared_builddir shared_build
-%global _static_builddir static_build
-
 Name:           wdt
-Version:        1.32.1910230
-Release:        %autorelease -s %{?date}git%{?shortcommit}
+Version:        1.32.1910230^%{?date}git%{?shortcommit}
+Release:        %autorelease
 Summary:        Warp speed Data Transfer
 
 License:        BSD
@@ -25,6 +21,10 @@ BuildRequires:  cmake
 
 # folly is disabled on s390x
 ExcludeArch:    s390x
+%if 0%{?fedora} >= 36
+# fmt code breaks: https://bugzilla.redhat.com/show_bug.cgi?id=2061022
+ExcludeArch:    ppc64le
+%endif
 
 BuildRequires:  boost-devel
 BuildRequires:  double-conversion-devel
@@ -34,9 +34,6 @@ BuildRequires:  glog-devel
 BuildRequires:  gtest-devel
 BuildRequires:  jemalloc-devel
 BuildRequires:  openssl-devel
-%if %{with static}
-BuildRequires:  folly-static
-%endif
 %if %{with tests}
 BuildRequires:  bash
 BuildRequires:  python3
@@ -46,34 +43,31 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 # for wcp
 Requires:       bash
 
-%description
+%global _description %{expand:
 Warp speed Data Transfer is aiming to transfer data between two systems
-as fast as possible.
+as fast as possible.}
+
+%description %{_description}
+
 
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+Obsoletes:      %{name}-static < 1.32.1910230^20210809git57bbd43-1
 
-%description    devel
+%description    devel %{_description}
+
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
+
 
 %package        libs
 Summary:        Shared libraries for %{name}
 
-%description    libs
-Warp speed Data Transfer (WDT) is a library aiming to transfer data between
-two systems as fast as possible over multiple TCP paths.
+%description    libs %{_description}
 
-%if %{with static}
-%package        static
-Summary:        Static development libraries for %{name}
-Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
+The %{name}-libs package contains libraries for %{name}.
 
-%description    static
-The %{name}-static package contains static libraries for
-developing applications that use %{name}.
-%endif
 
 %prep
 %setup -c -q
@@ -83,10 +77,10 @@ ln -s %{name}-%{commit} %{name}
 # Disable hardcoded CXX FLAGS
 sed -i -e 's/set(CMAKE_CXX_FLAGS.*//' %{name}/CMakeLists.txt
 
+
 %build
-mkdir %{_shared_builddir}
-pushd %{_shared_builddir}
-%cmake ../%{name} \
+pushd %{name}
+%cmake \
   -DCMAKE_CXX_FLAGS="%{optflags}" \
   -DCMAKE_SKIP_RPATH=ON \
   -DBUILD_SHARED_LIBS=ON \
@@ -99,21 +93,9 @@ pushd %{_shared_builddir}
 %cmake_build
 popd
 
-%if %{with static}
-mkdir %{_static_builddir}
-pushd %{_static_builddir}
-%cmake ../%{name} \
-  -DCMAKE_CXX_FLAGS="%{optflags}" \
-  -DCMAKE_SKIP_RPATH=ON \
-  -DBUILD_SHARED_LIBS=OFF \
-  -DWDT_USE_SYSTEM_FOLLY=ON \
-  -DBUILD_TESTING=OFF
-%cmake_build
-popd
-%endif
 
 %install
-pushd "%{_shared_builddir}"
+pushd %{name}
 %cmake_install
 # move installed shared libraries in the right place if needed
 %if "%{_lib}" == "lib64"
@@ -121,15 +103,6 @@ mv %{buildroot}%{_prefix}/lib %{buildroot}%{_libdir}
 %endif
 popd
 
-%if %{with static}
-pushd %{_static_builddir}
-# Not using %%cmake_install here as we need to override the DESTDIR
-DESTDIR="%{buildroot}/static" %__cmake --install "%{__cmake_builddir}"
-# move installed static libraries in the right place
-mv %{buildroot}/static%{_prefix}/lib/*.a %{buildroot}%{_libdir}
-rm -rf %{buildroot}/static
-popd
-%endif
 
 %if %{with tests}
 %check
@@ -139,6 +112,7 @@ export LD_LIBRARY_PATH="$PWD/%{__cmake_builddir}"
 %ctest
 popd
 %endif
+
 
 %files
 %doc wdt/README.md
@@ -153,10 +127,6 @@ popd
 %files libs
 %{_libdir}/*.so.1*
 
-%if %{with static}
-%files static
-%{_libdir}/*.a
-%endif
 
 %changelog
 %autochangelog
