@@ -3,9 +3,9 @@
 %bcond_with tests
 
 # last tagged release is from 2016 despite ongoing development
-%global commit 57bbd437075324892620ffa38d6c207f4acdd714
+%global commit 8f01b7558a80e5f08b06244d2821c3eb5c1d6e9b
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20210809
+%global date 20220708
 
 Name:           wdt
 Version:        1.32.1910230^%{?date}git%{?shortcommit}
@@ -19,12 +19,7 @@ Source0:        https://github.com/facebook/wdt/archive/%{commit}/%{name}-%{comm
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 
-# folly is disabled on s390x
-ExcludeArch:    s390x
-%if 0%{?fedora} >= 36
-# fmt code breaks: https://bugzilla.redhat.com/show_bug.cgi?id=2061022
-ExcludeArch:    ppc64le
-%endif
+ExclusiveArch:  x86_64 aarch64 ppc64le
 
 BuildRequires:  boost-devel
 BuildRequires:  double-conversion-devel
