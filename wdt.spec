@@ -9,7 +9,7 @@
 
 Name:           wdt
 Version:        1.32.1910230^%{?date}git%{?shortcommit}
-Release:        %autorelease
+Release:        %autorelease -e rv64
 Summary:        Warp speed Data Transfer
 
 License:        BSD-3-Clause
@@ -19,7 +19,7 @@ Source0:        https://github.com/facebook/wdt/archive/%{commit}/%{name}-%{comm
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 
-ExclusiveArch:  x86_64 aarch64 ppc64le
+ExclusiveArch:  x86_64 aarch64 ppc64le riscv64
 
 BuildRequires:  boost-devel
 BuildRequires:  double-conversion-devel
